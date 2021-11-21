@@ -1,36 +1,17 @@
 import os
-from pprint import pprint
-# v1
-data = {}
-files_list = []
-for filename in os.listdir():
-    if filename.endswith('.txt'):
-        files_list.append(filename)
-        with open(filename, encoding='utf-8') as file:
-            lines = file.read().split('\n')
-            # print(lines)
-            data[filename] = (len(lines), lines)
-pprint(files_list)
-pprint(sorted(data.values()))
-pprint(len(sorted(data.values())))
-print(data)
 
-# data = {}
-# lines_list = []
-# for filename in os.listdir():
-#     if filename.endswith('.txt'):
-#         # files_list.append(filename)
-#         with open(filename, encoding='utf-8') as file:
-#             line = file.readline().strip()
-#             lines_list.append(line)
-#             # print(lines)
-#             # data[filename] = (len(lines_list), lines_list)
-#         print(lines_list)
-#         print(data)
-# print(data)
-# print(os.listdir())
 
-# if file.endswith('.txt'):
-#     print('file')
-print(os.getcwd())
-print(os.path.join(os.getcwd()))
+def writing_file(path):
+    data = {}
+    for files in path:
+        if files.endswith('.txt'):
+            with open(files, encoding='utf-8') as file:
+                line = file.read().split('\n')
+                data[files] = (len(line), line)
+    for number, lines in sorted(data.values()):
+        with open('result.txt', 'a', encoding='utf-8') as file:
+            file.writelines("%s\n" % line for line in lines)
+    return file
+
+
+writing_file(os.listdir())
